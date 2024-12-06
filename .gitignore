@@ -70,3 +70,22 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+
+# Imported Assets that are not used
+/Assets/URP Nature Shader Set/
+/Assets/URP Nature Shader Set.meta
+/Assets/TerrainSampleAssets
+/Assets/TerrainSampleAssets.meta
+/Assets/Mountain Terrain rocks and tree
+/Assets/Mountain Terrain rocks and tree.meta
+/Assets/Ultimate 10 Plus Shaders
+/Assets/Ultimate 10 Plus Shaders.meta
+/Assets/PBS Materials Variety Pack
+/Assets/PBS Materials Variety Pack.meta
+/Assets/Miscellaneous
+/Assets/Miscellaneous.meta
+/Assets/NnUtils
+/Assets/NnUtils.meta
+/Assets/FlameEyeShader
+/Assets/FlameEyeShader.meta
