@@ -10,11 +10,26 @@ public class MouseLook : MonoBehaviour
 
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked; // To lock cursor in game window        
+        if (!PauseMenu.isPaused)
+        {
+            Cursor.lockState = CursorLockMode.Locked; // To lock cursor in game window 
+            Cursor.visible = false;
+        }
     }
  
     void Update()
     {
+        if (!PauseMenu.isPaused)
+        {           
+            Cursor.lockState = CursorLockMode.Locked; // To lock cursor in game window 
+            Cursor.visible = false;
+        }
+        else
+        {            
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+
         float mouseX = Input.GetAxis(StringRepo.mouseX) * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis(StringRepo.mouseY) * mouseSensitivity * Time.deltaTime;
 

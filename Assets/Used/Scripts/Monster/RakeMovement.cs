@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Animations;
 
@@ -59,7 +60,7 @@ public class RakeMovement : MonoBehaviour
 
         // Do not move or change animations if it's dead
         if (GetComponent<Rake>().IsDead())
-            return;
+            return;          
 
         // Based on the distance from the player perform a different action and a corresponding animation
         if (distance > aggroDistance)
@@ -67,16 +68,21 @@ public class RakeMovement : MonoBehaviour
             Idle();
         }
         else if (distance < aggroDistance && distance > 10f)
-        {
+        {          
             Run(direction);
         }
         else
-        {
+        {           
             Attack(direction);
         }
     }
     void Idle()
     {
+        // If the rake hit wait for the animation to end 
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName(StringRepo.HitAnimation)
+            && animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
+            return;
+
         // Need to check that the animation to be activated is not already activated in order to not reset
         if (!animator.GetCurrentAnimatorStateInfo(0).IsName(StringRepo.IdleAnimation))
         {
@@ -85,25 +91,42 @@ public class RakeMovement : MonoBehaviour
     }
     void Run(Vector3 direction)
     {
-        if (!animator.GetCurrentAnimatorStateInfo(0).IsName(StringRepo.RunAnimation)
-            && !animator.GetCurrentAnimatorStateInfo(0).IsName(StringRepo.Attack2Animation))
-            animator.SetTrigger(StringRepo.RunAnimation);
-
         LookAt(direction);
-        controller.Move(speed * Time.deltaTime * direction);
+
+        // If the rake hit wait for the animation to end 
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName(StringRepo.HitAnimation)
+            && animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
+            return;
+
+        // So it breaks the attacking loop
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName(StringRepo.Attack2Animation)
+            && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
+            animator.SetTrigger(StringRepo.IdleAnimation);
+
+        // If it is attacking move slower otherwise run
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName(StringRepo.Attack2Animation))
+        {
+            controller.Move(speed * Time.deltaTime / 8f * direction);
+        }
+        else
+        {
+            controller.Move(speed * Time.deltaTime * direction);
+            animator.SetTrigger(StringRepo.RunAnimation);
+        }        
     }
 
     void Attack(Vector3 direction)
     {
-        // Do the attack animation only if it's not doing the attack animation
-        // or if the attack animation is almost done
-        if (!animator.GetCurrentAnimatorStateInfo(0).IsName(StringRepo.Attack2Animation)
-            || (animator.GetCurrentAnimatorStateInfo(0).IsName(StringRepo.Attack2Animation)
-            && animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9f))
-        {
-            animator.SetTrigger(StringRepo.Attack2Animation);
-        }
+        // If the rake hit wait for the animation to end 
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName(StringRepo.HitAnimation)
+            && animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
+            return;
+
         LookAt(direction);
+
+        // Move when attacking but slower
+        controller.Move(speed * Time.deltaTime / 8f * direction);
+        animator.SetTrigger(StringRepo.Attack2Animation);                
     }
 
     // To rotate the character smoothly

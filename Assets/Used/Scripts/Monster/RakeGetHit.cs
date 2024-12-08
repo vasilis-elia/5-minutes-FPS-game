@@ -5,6 +5,7 @@ using UnityEngine;
 public class RakeGetHit : MonoBehaviour
 {
     public GameObject particlePrefab;
+    public GameObject weapon;
 
     void OnCollisionEnter(Collision col)
     {
@@ -16,7 +17,8 @@ public class RakeGetHit : MonoBehaviour
 
             // If a bullet hits a Rake the Rake takes damage and the bullet is destroyed instantly
             Rake rake = GetComponent<Rake>();
-            rake.TakeDamage(1);
+            rake.TakeDamage(weapon.GetComponent<Weapon>().damage);
+            
             Destroy(col.gameObject);
         }
     }

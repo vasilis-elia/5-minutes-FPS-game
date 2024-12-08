@@ -91,9 +91,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d2b8219e36384f4ca99de24047810f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
+  damage: 1
+  reloadTime: 1
   bulletPrefab: {fileID: 8112693736505086754, guid: b2238b86fe1f4db4a8b2b34cb9e82d02,
     type: 3}
+  bulletLight: {fileID: 0}
   muzzleFlash: {fileID: 0}
   bulletPoint: {fileID: 0}
   bulletSpeed: 1000

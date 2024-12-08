@@ -5,17 +5,26 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float health = 2f;
+    public static int maxHealth = 2;
+    public static int currentHealth;
+    public GameObject healthBar;
+
+    private void Start()
+    {
+        currentHealth = maxHealth;
+    }
 
     Boolean isDead = false; // After dying don't do anything else
 
     // If the damage is lethal call die, otherwise take damage
-    public void TakeDamage(float damage)
-    {
-        Debug.Log("test damage");
-        health -= damage;
+    public void TakeDamage(int damage)
+    {      
+        currentHealth -= damage;
 
-        if (!isDead && health <= 0f)
+        // Update the health bar canvas
+        healthBar.GetComponent<HealthBar>().UpdateHealthBar();
+
+        if (!isDead && currentHealth <= 0f)
         {
             Die();
         }  

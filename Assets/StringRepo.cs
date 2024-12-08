@@ -6,7 +6,7 @@ public static class StringRepo
     public const string VerticalInput = "Vertical";
     public const string mouseX = "Mouse X";
     public const string mouseY = "Mouse Y";
-    public const string mouse1 = "Fire1";
+    public const string mouse1 = "Fire1";  
 
     // Game objects
     public const string Bullet = "Bullet";
@@ -20,4 +20,7 @@ public static class StringRepo
     public const string HitAnimation = "Hit";
     public const string DieAnimation = "Die";
 
+    // Scenes
+    public const string GameScene = "GameScene";
+    public const string MainMenu = "MainMenu";   
 }

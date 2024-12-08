@@ -25,19 +25,23 @@ public class PlayerMovement : MonoBehaviour
         {
             velocity.y = -2f;
         }
+        float x = 0f;
+        float z = 0f;
 
-        float x = Input.GetAxis(StringRepo.HorizontalInput);
-        float z = Input.GetAxis(StringRepo.VerticalInput);
+        if (!PauseMenu.isPaused)
+        {
+            x = Input.GetAxis(StringRepo.HorizontalInput);
+            z = Input.GetAxis(StringRepo.VerticalInput);
+        }           
 
         Vector3 move = transform.right * x + transform.forward * z;
 
         controller.Move(move * speed * Time.deltaTime);
-        
 
-        if (Input.GetButtonDown(StringRepo.JumpButton) && isGrounded)
-        {
-            velocity.y = Mathf.Sqrt(jumpHeight * (-2f) * gravity); // Conservation of energy to find necessary inital vertical speed
-        }
+        if (!PauseMenu.isPaused)
+            if (Input.GetButtonDown(StringRepo.JumpButton) && isGrounded)        
+                velocity.y = Mathf.Sqrt(jumpHeight * (-2f) * gravity); // Conservation of energy to find necessary inital vertical speed
+        
 
         velocity.y += gravity * Time.deltaTime;
 

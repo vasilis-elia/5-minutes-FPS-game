@@ -7,9 +7,11 @@ public class Rake : MonoBehaviour
 {
     public float health = 2f;
     public GameObject rake;
-    Animator animator;
+    public AudioClip deathClip;
 
+    Animator animator;
     Boolean isDead = false; // After dying don't do anything else
+
     private void Start()
     {
         animator = rake.GetComponent<Animator>();
@@ -34,6 +36,7 @@ public class Rake : MonoBehaviour
     private void Die()
     {
         isDead = true;
+        GetComponent<AudioSource>().PlayOneShot(deathClip, 2.0f);
         animator.SetTrigger(StringRepo.DieAnimation);
         Destroy(gameObject, 20);
     }

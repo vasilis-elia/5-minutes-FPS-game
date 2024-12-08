@@ -1,13 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class RakeDoDamage : MonoBehaviour 
 { 
     public GameObject player;
     public GameObject rakeModel;
+    public AudioClip attackClip;
 
     Animator animator;
+    bool canAttack = true;
+    float audioAttackCooldown = 1.5f;
+    float audioTimer = 0f;
 
     public void Start()
     {
@@ -22,20 +27,39 @@ public class RakeDoDamage : MonoBehaviour
     }
     private void Update()
     {
+        // If the rake is dead nothing should happen
+        if (GetComponent<Rake>().IsDead())
+            return;   
+
         // Need to get the distance between to know if player is about to take damage
         Vector3 targetPosition = player.transform.position;
         Vector3 currentPosition = transform.position;
         float distance = (targetPosition - currentPosition).magnitude;
 
+        //Debug.Log(animator.GetCurrentAnimatorStateInfo(0).IsName(StringRepo.Attack2Animation));
+       
         // Damage should only be given when the Rake animation is finishing the attack
         float animationTiming = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
-        Debug.Log("distance = " + distance);
-        Debug.Log("time = " + animationTiming);    
-        Debug.Log(animator.GetCurrentAnimatorStateInfo(0).IsName(StringRepo.Attack2Animation));
-        if (distance < 10f && animator.GetCurrentAnimatorStateInfo(0).IsName(StringRepo.Attack2Animation)
-            && animationTiming > 0.5f && animationTiming < 0.8f)
+        audioTimer += Time.deltaTime;
+
+        if (animationTiming > 0.3f && animationTiming < 0.5f && audioTimer > audioAttackCooldown)
         {
-            player.GetComponent<Player>().TakeDamage(1f);
+            GetComponent<AudioSource>().PlayOneShot(attackClip);
+            audioTimer = 0f;
+        }            
+
+        // If the animation timing is below the threshold of the animation that it can do 
+        // damage then it's a new animation and the rake can do damage again
+        if (animationTiming < 0.5f)
+        {
+            canAttack = true;
+        }   
+   
+        if (canAttack && distance < 10f && animator.GetCurrentAnimatorStateInfo(0).IsName(StringRepo.Attack2Animation)
+            && animationTiming > 0.5f && animationTiming < 0.8f)
+        {           
+            canAttack = false;          
+            player.GetComponent<Player>().TakeDamage(1);
         }
     }
     IEnumerator Waiter()
