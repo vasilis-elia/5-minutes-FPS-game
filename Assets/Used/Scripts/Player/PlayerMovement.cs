@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
 
     public Transform groundCheck; // Linked with GroundCheck object
     public float groundDistance = 0.6f; // Sphere radius
-    public LayerMask groundMask; // To only collide with ground
+    public LayerMask groundMask; // To know when the character is on the ground, in order to reset vertical velocity
 
     Vector3 velocity;
     bool isGrounded;
