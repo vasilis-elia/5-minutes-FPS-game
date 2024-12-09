@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 5307837954744377319}
   - component: {fileID: 5421283698638080148}
   - component: {fileID: 3828257922970270832}
+  - component: {fileID: 7789863869660696882}
+  - component: {fileID: 3564025077121155313}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -171,3 +173,29 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7789863869660696882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 147883367286540153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99ef61615277d9c4ab7e680d1ba13ac2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defeatScreen: {fileID: 0}
+--- !u!114 &3564025077121155313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 147883367286540153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00e31225c37bf8343841715231c925df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  victoryScreen: {fileID: 0}

@@ -19,6 +19,9 @@ public class MouseLook : MonoBehaviour
  
     void Update()
     {
+        if (GameManager.gameOver)
+            return;
+
         if (!PauseMenu.isPaused)
         {           
             Cursor.lockState = CursorLockMode.Locked; // To lock cursor in game window 

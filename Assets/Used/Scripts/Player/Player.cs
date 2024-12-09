@@ -4,39 +4,35 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
-{
-    public static int maxHealth = 2;
-    public static int currentHealth;
+{   
     public GameObject healthBar;
+    public GameObject gameManager;   
+    public int maxHealth = 2;  
 
     private void Start()
     {
-        currentHealth = maxHealth;
-    }
-
-    Boolean isDead = false; // After dying don't do anything else
+        GameManager.currentHealth = maxHealth;       
+    }    
 
     // If the damage is lethal call die, otherwise take damage
     public void TakeDamage(int damage)
-    {      
-        currentHealth -= damage;
+    {
+        if (GameManager.currentHealth == 0)
+            return;
+
+        GameManager.currentHealth -= damage;    
 
         // Update the health bar canvas
         healthBar.GetComponent<HealthBar>().UpdateHealthBar();
 
-        if (!isDead && currentHealth <= 0f)
+        if (!GameManager.isDead && GameManager.currentHealth <= 0)
         {
             Die();
         }  
     }
     private void Die()
-    {
-        isDead = true;
-        // Show game over screen
-        Destroy(gameObject);
-    }
-    public Boolean IsDead()
-    {
-        return isDead;
+    {          
+        GameManager.isDead = true;
+        gameManager.GetComponent<Defeat>().SetDefeat();
     }
 }

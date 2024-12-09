@@ -18,6 +18,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.gameOver)
+            return;
+
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         // If character is on the ground and is not jumping (y < 0) then stay on the ground
@@ -42,7 +45,6 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetButtonDown(StringRepo.JumpButton) && isGrounded)        
                 velocity.y = Mathf.Sqrt(jumpHeight * (-2f) * gravity); // Conservation of energy to find necessary inital vertical speed
         
-
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);

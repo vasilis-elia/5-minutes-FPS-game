@@ -113,7 +113,7 @@ MonoBehaviour:
   rakeModel: {fileID: 7394785216509629190}
   speed: 30
   gravity: -30
-  aggroDistance: 50
+  aggroDistance: 400
   groundCheck: {fileID: 21059081559663036}
   groundDistance: 0.5
   groundMask:

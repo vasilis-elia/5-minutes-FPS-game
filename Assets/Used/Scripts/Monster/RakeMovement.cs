@@ -67,7 +67,7 @@ public class RakeMovement : MonoBehaviour
         {
             Idle();
         }
-        else if (distance < aggroDistance && distance > 10f)
+        else if (distance < aggroDistance && distance > 14f)
         {          
             Run(direction);
         }

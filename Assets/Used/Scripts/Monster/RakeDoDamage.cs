@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RakeDoDamage : MonoBehaviour 
@@ -40,23 +41,28 @@ public class RakeDoDamage : MonoBehaviour
        
         // Damage should only be given when the Rake animation is finishing the attack
         float animationTiming = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+
+        // Since the attack animation is on loop animationTiming will go over 1f, the actual
+        // animation progression is retrieved from decimal part of that number
+        float actualTiming = animationTiming - Mathf.Floor(animationTiming); 
+
         audioTimer += Time.deltaTime;
 
         if (animationTiming > 0.3f && animationTiming < 0.5f && audioTimer > audioAttackCooldown)
         {
             GetComponent<AudioSource>().PlayOneShot(attackClip);
             audioTimer = 0f;
-        }            
+        }
 
-        // If the animation timing is below the threshold of the animation that it can do 
-        // damage then it's a new animation and the rake can do damage again
-        if (animationTiming < 0.5f)
+        // If the animation timing is below the threshold (0.5f) of the animation that it can do 
+        // damage then it's a new animation and the rake can do damage again  
+        if (actualTiming < 0.5f)
         {
             canAttack = true;
         }   
    
-        if (canAttack && distance < 10f && animator.GetCurrentAnimatorStateInfo(0).IsName(StringRepo.Attack2Animation)
-            && animationTiming > 0.5f && animationTiming < 0.8f)
+        if (canAttack && distance < 14f && animator.GetCurrentAnimatorStateInfo(0).IsName(StringRepo.Attack2Animation)
+            && actualTiming > 0.5f && actualTiming < 0.8f)
         {           
             canAttack = false;          
             player.GetComponent<Player>().TakeDamage(1);

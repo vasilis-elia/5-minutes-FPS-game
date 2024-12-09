@@ -27,7 +27,7 @@ public class Weapon : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if (!PauseMenu.isPaused)
+        if (!PauseMenu.isPaused && !GameManager.gameOver)
             if (timer >= reloadTime && Input.GetButtonDown(StringRepo.mouse1))
             {
                 Shoot();

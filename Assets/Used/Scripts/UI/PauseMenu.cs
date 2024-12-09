@@ -11,13 +11,13 @@ public class PauseMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        pauseMenu.SetActive(false);
+        pauseMenu.SetActive(false); // Disable initially the pause screen and enable it when ESC is pressed
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (!GameManager.gameOver && Input.GetKeyDown(KeyCode.Escape))
         {
             if (isPaused)
                 ResumeGame();
@@ -30,14 +30,14 @@ public class PauseMenu : MonoBehaviour
     {
         isPaused = true;
         pauseMenu.SetActive(true);
-        Time.timeScale = 0f;
+        Time.timeScale = 0f; // Pauses the in game time
     }
 
     public void ResumeGame()
     {
         isPaused = false;
         pauseMenu.SetActive(false);
-        Time.timeScale = 1f;
+        Time.timeScale = 1f; // Resumes the in game time
     }
 
     public void GoToMainMenu()
