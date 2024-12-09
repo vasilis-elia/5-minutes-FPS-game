@@ -35,9 +35,7 @@ public class RakeDoDamage : MonoBehaviour
         // Need to get the distance between to know if player is about to take damage
         Vector3 targetPosition = player.transform.position;
         Vector3 currentPosition = transform.position;
-        float distance = (targetPosition - currentPosition).magnitude;
-
-        //Debug.Log(animator.GetCurrentAnimatorStateInfo(0).IsName(StringRepo.Attack2Animation));
+        float distance = (targetPosition - currentPosition).magnitude;      
        
         // Damage should only be given when the Rake animation is finishing the attack
         float animationTiming = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;

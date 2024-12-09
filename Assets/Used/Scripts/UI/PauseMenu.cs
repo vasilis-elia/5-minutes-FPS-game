@@ -20,9 +20,13 @@ public class PauseMenu : MonoBehaviour
         if (!GameManager.gameOver && Input.GetKeyDown(KeyCode.Escape))
         {
             if (isPaused)
+            {               
                 ResumeGame();
+            }
             else
+            {                
                 PauseGame();
+            }                
         }
     }
 
@@ -31,6 +35,8 @@ public class PauseMenu : MonoBehaviour
         isPaused = true;
         pauseMenu.SetActive(true);
         Time.timeScale = 0f; // Pauses the in game time
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public void ResumeGame()
@@ -38,6 +44,8 @@ public class PauseMenu : MonoBehaviour
         isPaused = false;
         pauseMenu.SetActive(false);
         Time.timeScale = 1f; // Resumes the in game time
+        Cursor.lockState = CursorLockMode.Locked; // To lock cursor in game window 
+        Cursor.visible = false;
     }
 
     public void GoToMainMenu()

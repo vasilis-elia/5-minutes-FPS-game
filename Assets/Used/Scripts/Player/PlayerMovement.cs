@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpHeight = 3f;
 
     public Transform groundCheck; // Linked with GroundCheck object
-    public float groundDistance = 0.6f; // Sphere radius
+    public float groundDistance = 0.3f; // Sphere radius
     public LayerMask groundMask; // To know when the character is on the ground, in order to reset vertical velocity
 
     Vector3 velocity;
@@ -46,7 +46,6 @@ public class PlayerMovement : MonoBehaviour
                 velocity.y = Mathf.Sqrt(jumpHeight * (-2f) * gravity); // Conservation of energy to find necessary inital vertical speed
         
         velocity.y += gravity * Time.deltaTime;
-
         controller.Move(velocity * Time.deltaTime);
     }
 }

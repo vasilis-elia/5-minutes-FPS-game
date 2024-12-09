@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,20 +10,23 @@ public class RakeMovement : MonoBehaviour
 {
     public CharacterController controller; // Linked with CharacterController component
     public GameObject player;
-    public GameObject rakeModel;
-
+    public GameObject rakeModel;  
+  
     public float speed = 30f;
-    public float gravity = -30f;
-    public float aggroDistance = 80f;
+    public float gravity = -40f;
+    public float aggroDistance = 200f;
+    public float jumpHeight = 55f;
+    public float jumpTimer = 5f; // Jump cooldown
 
     public Transform groundCheck; // Linked with GroundCheck object
     public float groundDistance = 0.6f; // Sphere radius
     public LayerMask groundMask; // To know when the character is on the ground, in order to reset vertical velocity
 
-    private Vector3 verticalVelocity;
+    private Vector3 velocity;
     private Animator animator;
 
     private bool isGrounded;
+    float currentTimer = 0f;
 
     private void Start()
     {
@@ -37,12 +41,15 @@ public class RakeMovement : MonoBehaviour
 
     void Update()
     {
+        if (GetComponent<Rake>().IsDead())
+            return;
+
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         // If character is on the ground then reset the vertical speed
-        if (isGrounded && verticalVelocity.y < 0)
+        if (isGrounded && velocity.y < 0)
         {
-            verticalVelocity.y = -2f;
+            velocity.y = -2f;
         }
 
         // Update the positions and direction towards player on each frame
@@ -51,12 +58,15 @@ public class RakeMovement : MonoBehaviour
         float distance = (targetPosition - currentPosition).magnitude;
         Vector3 direction = (targetPosition - currentPosition).normalized;
 
-        // Ignore the difference in y position
-        direction.y = 0f;
+        if (GameManager.timesUp)
+            setTimeUpValues();
+     
+        // Jump high to avoid obstacles       
+        velocity.y = jump(velocity.y);
 
         // Simulating gravity
-        verticalVelocity.y += gravity * Time.deltaTime;
-        controller.Move(verticalVelocity * Time.deltaTime);
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
 
         // Do not move or change animations if it's dead
         if (GetComponent<Rake>().IsDead())
@@ -135,6 +145,27 @@ public class RakeMovement : MonoBehaviour
         Quaternion targetRotation = Quaternion.LookRotation(direction);
         controller.transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
     }
+
+    // Jump high every jumpTimer seconds (to avoid obstacles)
+    float jump(float vel)
+    {       
+        if (currentTimer >= jumpTimer)
+        {
+            vel = Mathf.Sqrt(jumpHeight * (-2f) * gravity);
+            currentTimer = 0f;
+        }
+        currentTimer += Time.deltaTime;
+        return vel;
+    }
+
+    // Rake has infinite range, is faster and jumps heigher when the time is up
+    void setTimeUpValues()
+    {
+        aggroDistance = 5000f;
+        speed = 100f;
+        jumpHeight = 200f;
+    }
+
     IEnumerator Waiter()
     {
         yield return new WaitForSeconds(0.5f);

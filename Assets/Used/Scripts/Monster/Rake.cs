@@ -7,7 +7,7 @@ public class Rake : MonoBehaviour
 {
     public float health = 2f;
     public GameObject rake;
-    public AudioClip deathClip;
+    public AudioClip deathClip;    
 
     Animator animator;
     Boolean isDead = false; // After dying don't do anything else
@@ -38,6 +38,7 @@ public class Rake : MonoBehaviour
         isDead = true;
         GetComponent<AudioSource>().PlayOneShot(deathClip, 2.0f);
         animator.SetTrigger(StringRepo.DieAnimation);
+        GameManager.currentCount++; // Count the kill towards the total count
         Destroy(gameObject, 20);
     }
 

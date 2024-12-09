@@ -49,6 +49,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b419a6ca74fb50c44857ab208b12a208, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weapon: {fileID: 0}
+  rake: {fileID: 5921944328180098192, guid: 56c20e7ee6097b346b8113c672b86c05, type: 3}
 --- !u!114 &5307837954744377319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,7 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1abba4a333fc7a64080fb617d728ae32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startTime: 300
+  startTime: 5
   timerText: {fileID: 0}
 --- !u!82 &3828257922970270832
 AudioSource:

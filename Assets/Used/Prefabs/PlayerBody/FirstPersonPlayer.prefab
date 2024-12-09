@@ -24,13 +24,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4988487341680715457}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.73, z: -0}
+  m_LocalRotation: {x: 0.0046961163, y: -0, z: 0.000000002793968, w: 0.999989}
+  m_LocalPosition: {x: -0, y: -1.06, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4699238243512837751}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.538, y: 0, z: 0}
 --- !u!1 &6593839989535136400
 GameObject:
   m_ObjectHideFlags: 0
@@ -80,7 +80,7 @@ Camera:
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
-  m_FOVAxisMode: 0
+  m_FOVAxisMode: 1
   m_Iso: 200
   m_ShutterSpeed: 0.005
   m_Aperture: 16
@@ -100,7 +100,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 1000
-  field of view: 90
+  field of view: 58.70506
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -196,6 +196,7 @@ GameObject:
   - component: {fileID: 7258729849464561242}
   - component: {fileID: 896244801415968450}
   - component: {fileID: 599967603823022004}
+  - component: {fileID: 8051110759223238325}
   m_Layer: 0
   m_Name: FirstPersonPlayer
   m_TagString: Untagged
@@ -211,7 +212,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7128542535276532552}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.04160788, y: 0.16157873, z: -0.007630201, w: 0.98595273}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 59.912937, y: 26.148884, z: 30.175648}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -220,7 +221,7 @@ Transform:
   - {fileID: 1695329115598763451}
   - {fileID: 3970208424228237156}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 4.848, y: 18.61, z: -0.092}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &7258729849464561242
 CharacterController:
   m_ObjectHideFlags: 0
@@ -241,11 +242,11 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 3
   m_Height: 2
-  m_Radius: 0.5
+  m_Radius: 0.2
   m_SlopeLimit: 45
-  m_StepOffset: 1
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
+  m_StepOffset: 0
+  m_SkinWidth: 0.0001
+  m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &896244801415968450
 MonoBehaviour:
@@ -260,11 +261,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 7258729849464561242}
-  speed: 10
-  gravity: -40
-  jumpHeight: 5
+  speed: 40
+  gravity: -80
+  jumpHeight: 10
   groundCheck: {fileID: 3970208424228237156}
-  groundDistance: 0.5
+  groundDistance: 0.3
   groundMask:
     serializedVersion: 2
     m_Bits: 64
@@ -282,7 +283,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 0}
   gameManager: {fileID: 0}
-  maxHealth: 1
+  maxHealth: 3
+--- !u!54 &8051110759223238325
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7128542535276532552}
+  serializedVersion: 4
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 0
+  m_ImplicitTensor: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &8758330924240746551
 GameObject:
   m_ObjectHideFlags: 0
@@ -429,17 +457,17 @@ PrefabInstance:
     - target: {fileID: 1198125743301713566, guid: 5a76995ed8ba2b045b1c2f75d092b98f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.57699585
+      value: 0.577
       objectReference: {fileID: 0}
     - target: {fileID: 1198125743301713566, guid: 5a76995ed8ba2b045b1c2f75d092b98f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.54499936
+      value: -0.545
       objectReference: {fileID: 0}
     - target: {fileID: 1198125743301713566, guid: 5a76995ed8ba2b045b1c2f75d092b98f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.47399902
+      value: 0.752
       objectReference: {fileID: 0}
     - target: {fileID: 1198125743301713566, guid: 5a76995ed8ba2b045b1c2f75d092b98f,
         type: 3}
