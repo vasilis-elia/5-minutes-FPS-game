@@ -216,41 +216,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 286925699619934474, guid: e321db6c06d459c469247a0b9b8812a7,
-        type: 3}
-      propertyPath: m_text
-      value: Victory
-      objectReference: {fileID: 0}
-    - target: {fileID: 286925699619934474, guid: e321db6c06d459c469247a0b9b8812a7,
-        type: 3}
-      propertyPath: m_fontColor.g
-      value: 0.8666667
-      objectReference: {fileID: 0}
-    - target: {fileID: 286925699619934474, guid: e321db6c06d459c469247a0b9b8812a7,
-        type: 3}
-      propertyPath: m_fontColor.r
-      value: 0.14019807
-      objectReference: {fileID: 0}
-    - target: {fileID: 286925699619934474, guid: e321db6c06d459c469247a0b9b8812a7,
-        type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4278246692
-      objectReference: {fileID: 0}
-    - target: {fileID: 4454379148989348259, guid: e321db6c06d459c469247a0b9b8812a7,
-        type: 3}
-      propertyPath: m_Name
-      value: VictoryText
-      objectReference: {fileID: 0}
-    - target: {fileID: 5718378514063424579, guid: e321db6c06d459c469247a0b9b8812a7,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Victory, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 8963986436034295406, guid: e321db6c06d459c469247a0b9b8812a7,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Victory, Assembly-CSharp
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

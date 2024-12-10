@@ -11,6 +11,8 @@ public static class StringRepo
     // Game objects
     public const string Bullet = "Bullet";
     public const string Player = "FirstPersonPlayer";
+    public const string BossCeiling = "BossCeiling";
+    public const string GameManager = "GameManager";
 
     // Animations
     public const string RunAnimation = "Run";
@@ -19,6 +21,7 @@ public static class StringRepo
     public const string IdleAnimation = "Idle";
     public const string HitAnimation = "Hit";
     public const string DieAnimation = "Die";
+    public const string Walk = "Walk";
 
     // Scenes
     public const string GameScene = "GameScene";

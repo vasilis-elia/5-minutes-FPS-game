@@ -9,7 +9,7 @@ public class BulletHitDestroy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // The moment this object is insantiated play the particle animation
+        // The moment this object is instantiated play the particle animation
         self = GetComponent<ParticleSystem>();
         self.Play();
         GetComponent<AudioSource>().Play();

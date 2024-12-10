@@ -19,7 +19,7 @@ public class RakeMovement : MonoBehaviour
     public float jumpTimer = 5f; // Jump cooldown
 
     public Transform groundCheck; // Linked with GroundCheck object
-    public float groundDistance = 0.6f; // Sphere radius
+    public float groundDistance = 0.3f; // Sphere radius
     public LayerMask groundMask; // To know when the character is on the ground, in order to reset vertical velocity
 
     private Vector3 velocity;
@@ -51,7 +51,7 @@ public class RakeMovement : MonoBehaviour
         {
             velocity.y = -2f;
         }
-
+      
         // Update the positions and direction towards player on each frame
         Vector3 targetPosition = player.transform.position;
         Vector3 currentPosition = transform.position;
@@ -66,11 +66,7 @@ public class RakeMovement : MonoBehaviour
 
         // Simulating gravity
         velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
-
-        // Do not move or change animations if it's dead
-        if (GetComponent<Rake>().IsDead())
-            return;          
+        controller.Move(velocity * Time.deltaTime);     
 
         // Based on the distance from the player perform a different action and a corresponding animation
         if (distance > aggroDistance)
@@ -78,11 +74,11 @@ public class RakeMovement : MonoBehaviour
             Idle();
         }
         else if (distance < aggroDistance && distance > 14f)
-        {          
+        {
             Run(direction);
         }
         else
-        {           
+        {
             Attack(direction);
         }
     }

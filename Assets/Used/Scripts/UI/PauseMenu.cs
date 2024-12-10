@@ -33,6 +33,7 @@ public class PauseMenu : MonoBehaviour
     public void PauseGame()
     {
         isPaused = true;
+        AudioListener.pause = true;
         pauseMenu.SetActive(true);
         Time.timeScale = 0f; // Pauses the in game time
         Cursor.lockState = CursorLockMode.None;
@@ -42,6 +43,7 @@ public class PauseMenu : MonoBehaviour
     public void ResumeGame()
     {
         isPaused = false;
+        AudioListener.pause = false;
         pauseMenu.SetActive(false);
         Time.timeScale = 1f; // Resumes the in game time
         Cursor.lockState = CursorLockMode.Locked; // To lock cursor in game window 

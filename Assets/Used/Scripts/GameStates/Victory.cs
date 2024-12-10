@@ -20,6 +20,7 @@ public class Victory : MonoBehaviour
     void ShowVictoryScreen()
     {
         Time.timeScale = 0f;
+        AudioListener.pause = true;
         GameManager.gameOver = true;
         victoryScreen.SetActive(true);        
         Cursor.lockState = CursorLockMode.None;
