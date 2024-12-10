@@ -9,6 +9,7 @@ public class RakeDoDamage : MonoBehaviour
     public GameObject player;
     public GameObject rakeModel;
     public AudioClip attackClip;
+    public float attackRange = 21f;
 
     Animator animator;
     bool canAttack = true;
@@ -59,7 +60,7 @@ public class RakeDoDamage : MonoBehaviour
             canAttack = true;
         }   
    
-        if (canAttack && distance < 14f && animator.GetCurrentAnimatorStateInfo(0).IsName(StringRepo.Attack2Animation)
+        if (canAttack && distance < attackRange && animator.GetCurrentAnimatorStateInfo(0).IsName(StringRepo.Attack2Animation)
             && actualTiming > 0.5f && actualTiming < 0.8f)
         {           
             canAttack = false;          

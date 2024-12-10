@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Audio;
+using static UnityEngine.SpriteMask;
 
 public class BossMovement : MonoBehaviour
 {
@@ -9,21 +7,22 @@ public class BossMovement : MonoBehaviour
     public AudioClip bossWalk;
     public AudioClip bossIdle;
     public AudioClip bossLand;
-    public Transform groundCheck;
+    public Transform groundCheck;    
 
-    public float speed = 5f;
+    public float speed = 12f;
     public float gravity = -80f;
-    public float groundDistance = 0.5f;
-    public float idleDistance = 5f;
+    public float groundDistance = 1f;
+    
     public LayerMask groundMask;
 
     private Vector3 velocity;
-    float walkTime = 0f;
-    float walkDuration;
+    float idleDistance; // Same as AoE damage range
     bool hasLanded; // For the first time the boss lands (when it spawns)
 
     Animator animator;
     AudioSource audioSource; // To know when to play the clip again
+    AudioSource walkSource; // To stop the walk audio when boss stops walking
+    AudioSource idleSource;
     CharacterController controller;
 
     bool isGrounded;
@@ -33,9 +32,13 @@ public class BossMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
         audioSource = GetComponent<AudioSource>();
-        walkDuration = bossWalk.length;
+        idleSource = gameObject.AddComponent<AudioSource>();
+        walkSource = gameObject.AddComponent<AudioSource>(); 
         animator.SetTrigger(StringRepo.IdleAnimation); // Spawn on idle animation but don't play the corresponding clip since it will laugh at first
-   
+
+        idleDistance = GetComponent<BossAoE>().range;
+        Debug.Log(idleDistance);
+
         player = GameObject.Find(StringRepo.Player);
         if (player == null)
             Debug.Log("Player object not found");
@@ -44,18 +47,19 @@ public class BossMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log("Is walking = " + animator.GetCurrentAnimatorStateInfo(0).IsName(StringRepo.Walk));
-        //Debug.Log("Is idling = " + animator.GetCurrentAnimatorStateInfo(0).IsName(StringRepo.IdleAnimation));    
-
+        // When boss dies perform idle animation, but don't move
         if (GetComponent<Boss>().IsDead())
+        {
+            animator.SetTrigger(StringRepo.IdleAnimation);
             return;
-
+        }
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         // Do these the once when then boss lands after being spawned
         if (isGrounded && !hasLanded)
         {
-            hasLanded = true;         
+            hasLanded = true;
+            GameManager.bossLanded = true;
             audioSource.PlayOneShot(bossLand);
         }
 
@@ -79,8 +83,7 @@ public class BossMovement : MonoBehaviour
         if (!hasLanded)
             return;
 
-        //Debug.Log(distance);
-        // Based on the distance from the player perform a different action and a corresponding animation
+        // When the player is close the boss the boss idles (does AoE damage), and walk to them when their away
         if (distance < idleDistance)
         {
             Idle();
@@ -93,44 +96,46 @@ public class BossMovement : MonoBehaviour
 
     void Idle()
     {
-        // Only play the idle audio if transitioning to idle animation or have been on the loop for a long time
-        if (!animator.GetCurrentAnimatorStateInfo(0).IsName(StringRepo.IdleAnimation) ||
-            animator.GetCurrentAnimatorStateInfo(0).IsName(StringRepo.IdleAnimation) &&
-            animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 3f)
+        // Walking sound effect should when the boss stops walking
+        walkSource.Stop();
+        
+        // If idleAnimation is on but they corresponding audio clip is not playing then play it
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName(StringRepo.IdleAnimation) && !idleSource.isPlaying)
         {
-            audioSource.priority = 220;
-            audioSource.volume = 0.1f;
-            audioSource.reverbZoneMix = 0f;
-            audioSource.PlayOneShot(bossIdle);
+            idleSource.PlayOneShot(bossIdle, 0.5f);
+          
         }
-
         // For idle animation do not look at the player
         animator.SetTrigger(StringRepo.IdleAnimation);
     }
 
     void Walk(Vector3 direction)
-    {
-        walkTime += Time.deltaTime;
+    {      
+        // Allow the boss to perform at least one idle animation cycle before interrupting him to walk
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName(StringRepo.IdleAnimation) &&
+            animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1f)
+            return;
 
-        // Only play the walk audio if transitioning to walk animation or have finished the audio clip and still walking
-        if (!animator.GetCurrentAnimatorStateInfo(0).IsName(StringRepo.Walk) ||
-            (animator.GetCurrentAnimatorStateInfo(0).IsName(StringRepo.Walk) && walkTime >= walkDuration))
+        // If walkAnimation is on but they corresponding audio clip is not playing then play it
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName(StringRepo.Walk) && !walkSource.isPlaying)
         {
-            audioSource.priority = 220;
-            audioSource.volume = 0.07f;
-            audioSource.reverbZoneMix = 0f;
-            audioSource.PlayOneShot(bossWalk);
-            walkTime = 0f;
+            walkSource.PlayOneShot(bossWalk, 0.3f);
+            walkSource.spatialBlend = 0.4f;
+            walkSource.reverbZoneMix = 0.2f;
         }
-
-        LookAt(direction);
         animator.SetTrigger(StringRepo.Walk);
 
-        controller.Move(speed * Time.deltaTime * direction);
+        // Only move and look at player when walking
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName(StringRepo.Walk))
+        {
+            LookAt(direction);
+            controller.Move(speed * Time.deltaTime * direction);
+        }
     }
 
     void LookAt(Vector3 direction)
     {
+        direction.y = 0; // So the boss only looks forward
         Quaternion targetRotation = Quaternion.LookRotation(direction);
         controller.transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
     }

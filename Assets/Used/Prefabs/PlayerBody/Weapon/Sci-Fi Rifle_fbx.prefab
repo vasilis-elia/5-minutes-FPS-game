@@ -99,13 +99,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d2b8219e36384f4ca99de24047810f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 20
+  damage: 1
   reloadTime: 1
   bulletPrefab: {fileID: 8112693736505086754, guid: b2238b86fe1f4db4a8b2b34cb9e82d02,
     type: 3}
   bulletLight: {fileID: 2048156447782955000, guid: 500e755e10beb0a4e80840891780b9a7,
     type: 3}
-  muzzleFlash: {fileID: 0}
+  muzzleFlash: {fileID: 5435019307109999192}
   bulletPoint: {fileID: 6936170606923883274}
   bulletSpeed: 600
 --- !u!82 &5820471426077211609
@@ -312,6 +312,12 @@ PrefabInstance:
 --- !u!4 &1090833355410307453 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8039070058089304740, guid: bac4456567e9e3940813579c7596756d,
+    type: 3}
+  m_PrefabInstance: {fileID: 6968168720401476569}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &5435019307109999192 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3161238642109368705, guid: bac4456567e9e3940813579c7596756d,
     type: 3}
   m_PrefabInstance: {fileID: 6968168720401476569}
   m_PrefabAsset: {fileID: 0}

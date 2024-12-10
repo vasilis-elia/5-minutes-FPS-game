@@ -5,8 +5,8 @@ using UnityEngine;
 public class BossAoE : MonoBehaviour
 {
     public GameObject player;
-    public int damagePerSecond;
-    public float range;
+    public int damagePerSecond = 1;
+    public float range = 37f;
 
     float timer; // For keeping track the duration when then player is close to the boss
     // Start is called before the first frame update
@@ -35,8 +35,7 @@ public class BossAoE : MonoBehaviour
 
     void DoDamage()
     {
-        timer += Time.deltaTime;
-        Debug.Log("timer = " + timer);
+        timer += Time.deltaTime;      
         // Every one second do damagePerSecond damage to the player
         if (timer > 1f)
         {

@@ -5,12 +5,12 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public CharacterController controller; // Linked with CharacterController component
-    public float speed = 30f;
-    public float gravity = -30f;
-    public float jumpHeight = 3f;
+    public float speed = 20f;
+    public float gravity = -80f;
+    public float jumpHeight = 10f;
 
     public Transform groundCheck; // Linked with GroundCheck object
-    public float groundDistance = 0.3f; // Sphere radius
+    public float groundDistance = 0.5f; // Sphere radius
     public LayerMask groundMask; // To know when the character is on the ground, in order to reset vertical velocity
 
     Vector3 velocity;
@@ -40,6 +40,10 @@ public class PlayerMovement : MonoBehaviour
         Vector3 move = transform.right * x + transform.forward * z;
 
         controller.Move(move * speed * Time.deltaTime);
+
+        // To keep the body of the player correctly oriented
+        Vector3 currentRotation = transform.eulerAngles;       
+        transform.eulerAngles = new Vector3(0f, currentRotation.y, 0f);
 
         if (!PauseMenu.isPaused)
             if (Input.GetButtonDown(StringRepo.JumpButton) && isGrounded)        

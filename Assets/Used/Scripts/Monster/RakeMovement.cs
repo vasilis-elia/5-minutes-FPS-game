@@ -12,14 +12,14 @@ public class RakeMovement : MonoBehaviour
     public GameObject player;
     public GameObject rakeModel;  
   
-    public float speed = 30f;
+    public float speed = 60f;
     public float gravity = -40f;
     public float aggroDistance = 200f;
     public float jumpHeight = 55f;
     public float jumpTimer = 5f; // Jump cooldown
 
     public Transform groundCheck; // Linked with GroundCheck object
-    public float groundDistance = 0.3f; // Sphere radius
+    public float groundDistance = 0.5f; // Sphere radius
     public LayerMask groundMask; // To know when the character is on the ground, in order to reset vertical velocity
 
     private Vector3 velocity;
@@ -42,7 +42,12 @@ public class RakeMovement : MonoBehaviour
     void Update()
     {
         if (GetComponent<Rake>().IsDead())
+        {
+            // Makes the body fall on the ground
+            velocity.y += gravity * Time.deltaTime;
+            controller.Move(velocity * Time.deltaTime);
             return;
+        }           
 
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 

@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
 {   
     public GameObject healthBar;
     public GameObject gameManager;   
-    public int maxHealth = 2;  
+    public int maxHealth = 20;  
 
     private void Start()
     {

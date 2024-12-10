@@ -221,19 +221,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  lowReload: 2
-  highReload: 3
+  lowReload: 1
+  highReload: 2
   bulletPrefab: {fileID: 8112693736505086754, guid: 05ca45b3ec22c2442949ee731ab33bc1,
     type: 3}
   bulletLight: {fileID: 2048156447782955000, guid: e0d72346b5d05f2408ba82b91ebe8abb,
     type: 3}
-  muzzleFlash: {fileID: 198234346748616026, guid: ad2ab49d0a2a17148bd51c93d977bdbc,
+  muzzleFlash: {fileID: 198234346748616026, guid: 78c64fecdfe72274482579aa9f12a10e,
     type: 3}
   bulletPoint: {fileID: 1384123813722457068}
   player: {fileID: 0}
   boss: {fileID: 9137032837993464747, guid: 58217d6185b8a4e44adda6c5fdc7ad84, type: 3}
-  bulletSpeed: 750
-  recoil: 0
+  bulletSpeed: 700
+  recoil: 10
 --- !u!82 &8945578961830881808
 AudioSource:
   m_ObjectHideFlags: 0
@@ -253,7 +253,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 201
+  Priority: 256
   DopplerLevel: 3.11
   MinDistance: 1
   MaxDistance: 500

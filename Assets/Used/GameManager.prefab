@@ -56,7 +56,8 @@ MonoBehaviour:
   player: {fileID: 0}
   bossCeiling: {fileID: 0}
   bossSpawner: {fileID: 0}
-  killThreshold: 1
+  boss: {fileID: 0}
+  killThreshold: 10
 --- !u!114 &5307837954744377319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,18 +98,18 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 6bda62f632381004db71cc39c09324ac, type: 3}
   m_Resource: {fileID: 8300000, guid: 6bda62f632381004db71cc39c09324ac, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.026
+  m_Volume: 0.035
   m_Pitch: 1
   Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 256
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -193,8 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99ef61615277d9c4ab7e680d1ba13ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defeatScreen: {fileID: 60920479493832201, guid: c6b0afd503aa5c344828d5f1337e50bd,
-    type: 3}
+  defeatScreen: {fileID: 0}
 --- !u!114 &3564025077121155313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,5 +207,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00e31225c37bf8343841715231c925df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  victoryScreen: {fileID: 187871791850851200, guid: e321db6c06d459c469247a0b9b8812a7,
-    type: 3}
+  victoryScreen: {fileID: 0}

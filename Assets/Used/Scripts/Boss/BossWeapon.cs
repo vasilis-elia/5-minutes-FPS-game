@@ -6,16 +6,16 @@ using UnityEngine;
 public class BossWeapon : MonoBehaviour
 {
     public int damage = 1;
-    public float lowReload = 2f;  // Time threshholds for firing the gun
-    public float highReload = 4f;    
+    public float lowReload = 1f;  // Time threshholds for firing the gun
+    public float highReload = 2f;    
     public GameObject bulletPrefab;
     public GameObject bulletLight;
     public ParticleSystem muzzleFlash;
     public GameObject bulletPoint;
     public GameObject player;
     public GameObject boss;
-    public float bulletSpeed = 500f;
-    public float recoil = 20f;
+    public float bulletSpeed = 700f;
+    public float recoil = 10f;
 
     private AudioSource audioSource;
     private float shootTime; // The actual reload time calculated randomly between low and high reload

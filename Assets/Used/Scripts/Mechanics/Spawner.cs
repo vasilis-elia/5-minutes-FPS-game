@@ -6,8 +6,8 @@ public class Spawner : MonoBehaviour
 {
     public GameObject rake;
     public GameObject player;
-    public float spawnDistance;
-
+    
+    float spawnDistance;
     bool hasSpawned = false;
     bool hasSpawnedTimeUp = false;    
 
